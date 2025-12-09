@@ -25,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vprofile-app
-          path: tartget/*.war
+          path: target/*.war
 
       - name: Notify if the build fails
         if: failure()
