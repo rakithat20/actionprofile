@@ -54,6 +54,10 @@ jobs:
     runs-on: ubuntu-24.04
     needs: Build
     steps:
+      - name: Code Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.33.1
         with:
