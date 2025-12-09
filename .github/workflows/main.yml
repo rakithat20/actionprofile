@@ -49,3 +49,22 @@ jobs:
       - name: Run tests on other branches
         if: github.ref != 'refs/heads/main'
         run: echo "Skipping unit tests and code analysis"
+
+  Security-Scan:
+    runs-on: ubuntu-24.04
+    needs: Build
+    steps:
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          scan-type: fs
+          scan-ref: .
+          format: json
+          exit-code: 0
+          vuln-type: os,library
+          output: trivy.results.json
+      - name: Upload The Artifact (War)
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-scan-results
+          path: trivy.results.json
